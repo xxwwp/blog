@@ -46,6 +46,7 @@ const useStyles = makeStyles(({ palette }) => ({
     "& li": {
       listStyle: "none",
       fontSize: 13,
+      wordBreak: "break-all",
     },
 
     "& a": {
