@@ -100,7 +100,7 @@ function Article({
               )}
               <li>最终发布：{dateFomatter(article.published_at)}</li>
               <li>上次更新：{dateFomatter(article.updated_at)}</li>
-              <li>本文永久链接：{process.env.NEXT_PUBLIC_ENV_HOST + `/article/${article.name}`}</li>
+              <li>本文永久链接：{encodeURI(process.env.NEXT_PUBLIC_ENV_HOST + `/article/${article.name}`)}</li>
               <li>
                 版权声明：
                 <ALink rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
