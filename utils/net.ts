@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "@apollo/clie
 import Axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 import useSWR, { SWRConfiguration } from "swr";
 
-const uri = "http://localhost:1337/graphql";
+const uri = process.env.NEXT_PUBLIC_ENV_CMS_URL;
 
 const serverApolloClient = new ApolloClient({
   uri,
@@ -25,7 +25,7 @@ export async function paperProps(query) {
 }
 
 export const axios = Axios.create({
-  baseURL: process.env.NEXT_PUBLIC_CMS_URL,
+  baseURL: process.env.NEXT_PUBLIC_ENV_CMS_URL,
 });
 
 export function useHTTP<D = any, E = any>(
