@@ -27,7 +27,7 @@ export async function getServerSideProps(c) {
   const res = await paperProps(gql`
     query {
       articlesCount ( where: ${gqlWhere}) 
-      articles (start:${page * PAGE_COUNT}, limit:${PAGE_COUNT}, where:${gqlWhere}) {
+      articles (start:${page * PAGE_COUNT}, limit:${PAGE_COUNT}, where:${gqlWhere}, sort:"published_at:desc") {
         id
         name
         updated_at

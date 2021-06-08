@@ -8,7 +8,6 @@ import SMain from "../../components/SMain";
 import Tag from "../../components/Tag";
 import Page from "../../components/Page";
 import { makeStyles } from "@material-ui/styles";
-import { Paper } from "@material-ui/core";
 
 export async function getServerSideProps(s) {
   return await paperProps(gql`
