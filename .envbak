@@ -2,7 +2,7 @@
 IS_SERVER=true
 
 # cms 地址
-NEXT_PUBLIC_CMS_URL=http://127.0.0.1/prefix
+NEXT_PUBLIC_ENV_CMS_URL=http://127.0.0.1/prefix
 
 # 网址
 NEXT_PUBLIC_ENV_HOST="http://localhost"
