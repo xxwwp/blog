@@ -76,6 +76,7 @@ function Article({
       <Head>
         <meta name="description" content={article.abstract} />
         <meta name="keywords" content={keywords} />
+        <title>{`${article.name}_${state.site.name}`}</title>
       </Head>
       <Page>
         <SMain>

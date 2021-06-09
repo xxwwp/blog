@@ -25,17 +25,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "lighter",
     },
   },
-
-  navUl: {
-    margin: 0,
-    overflow: "auto",
-    display: "flex",
-    listStyle: "none",
-  },
-  navItem: {
-    marginRight: "20px",
-    fontWeight: "lighter",
-  },
 }));
 
 const navs = [{ name: "文章", path: "/articles" }];
@@ -53,27 +42,6 @@ function Header({ ref, ...rest }: Props) {
             <a>玄晓乌屋</a>
           </Link>
         </div>
-        <nav>
-          <ul className={classes.navUl}>
-            {navs.map((v) => (
-              <li className={classes.navItem} key={v.name}>
-                <Link href={v.path}>
-                  <a className="nav-link">{v.name}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* <div className="toggle-theme">
-          <IconButton>
-            {theme.name === "light" ? (
-              <Moon color={theme.color.white} size={20} onClick={handleToggleTheme} />
-            ) : (
-              <Sun color={theme.color.black} size={20} onClick={handleToggleTheme}></Sun>
-            )}
-          </IconButton>
-        </div> */}
       </div>
     </header>
   );

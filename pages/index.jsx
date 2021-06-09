@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { paperProps } from "../utils";
+import { paperProps, useStore } from "../utils";
 import SMain from "../components/SMain";
 import Page from "../components/Page";
 import Form, { FormItem, Radio } from "../components/Form";
@@ -9,6 +9,7 @@ import qs from "qs";
 import Pagination from "../components/Pagination";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import Head from "next/head";
 
 // 每页数量
 const PAGE_COUNT = 10;
@@ -63,13 +64,15 @@ export async function getServerSideProps(c) {
 }
 
 function createUrl(query, name, value) {
-  return `/articles?${qs.stringify({ ...query, [name]: value })}`;
+  return `?${qs.stringify({ ...query, [name]: value })}`;
 }
 
 function Home({ statusCode, d, ...r }) {
   if (statusCode === 404) {
     return <SMain>404</SMain>;
   }
+
+  const [state] = useStore();
 
   const classes = useStyles();
 
@@ -92,59 +95,66 @@ function Home({ statusCode, d, ...r }) {
   }
 
   return (
-    <Page>
-      <SMain className={classes.main}>
-        <Paper className={classes.ctrl}>
-          <Form action="./" className="filter">
-            <FormItem field="归档">
-              <Radio
-                name="archive"
-                label="所有"
-                value="null"
-                checked={archive === "null"}
-                onChange={(e) => handleRadio(e, "archive")}
-              />
-              {d.archives.map(({ id, name }) => (
+    <>
+      <Head>
+        <meta name="description" content={state.site.description} />
+        <meta name="keywords" content={state.site.keywords.join(",")} />
+        <title>{state.site.name}</title>
+      </Head>
+      <Page>
+        <SMain className={classes.main}>
+          <Paper className={classes.ctrl}>
+            <Form action="./" className="filter">
+              <FormItem field="归档">
                 <Radio
-                  key={id}
-                  id={`archives-${id}`}
                   name="archive"
-                  label={name}
-                  value={id}
-                  checked={archive === id}
+                  label="所有"
+                  value="null"
+                  checked={archive === "null"}
                   onChange={(e) => handleRadio(e, "archive")}
                 />
-              ))}
-            </FormItem>
-            <FormItem field="标签">
-              <Radio
-                name="tag"
-                label="所有"
-                value="null"
-                checked={tag === "null"}
-                onChange={(e) => handleRadio(e, "tag")}
-              />
-              {d.tags.map(({ id, name }) => (
+                {d.archives.map(({ id, name }) => (
+                  <Radio
+                    key={id}
+                    id={`archives-${id}`}
+                    name="archive"
+                    label={name}
+                    value={id}
+                    checked={archive === id}
+                    onChange={(e) => handleRadio(e, "archive")}
+                  />
+                ))}
+              </FormItem>
+              <FormItem field="标签">
                 <Radio
-                  key={id}
-                  id={`tag-${id}`}
                   name="tag"
-                  label={name}
-                  value={id}
-                  checked={tag === id}
+                  label="所有"
+                  value="null"
+                  checked={tag === "null"}
                   onChange={(e) => handleRadio(e, "tag")}
                 />
-              ))}
-            </FormItem>
-          </Form>
-        </Paper>
+                {d.tags.map(({ id, name }) => (
+                  <Radio
+                    key={id}
+                    id={`tag-${id}`}
+                    name="tag"
+                    label={name}
+                    value={id}
+                    checked={tag === id}
+                    onChange={(e) => handleRadio(e, "tag")}
+                  />
+                ))}
+              </FormItem>
+            </Form>
+          </Paper>
 
-        <div className={classes.article}>
-          <ArticleList articles={d.articles} />
-          <Pagination prev={prevPage} next={nextPage} current={currentPage} links={PaginationLinks} />
-        </div>
-      </SMain>
-    </Page>
+          <div className={classes.article}>
+            <ArticleList articles={d.articles} />
+            <Pagination prev={prevPage} next={nextPage} current={currentPage} links={PaginationLinks} />
+          </div>
+        </SMain>
+      </Page>
+    </>
   );
 }
 

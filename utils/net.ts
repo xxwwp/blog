@@ -1,8 +1,8 @@
-import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "@apollo/client/core";
+import { ApolloClient, createHttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client/core";
 import Axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 import useSWR, { SWRConfiguration } from "swr";
 
-const uri = process.env.NEXT_PUBLIC_ENV_CMS_URL;
+const uri = process.env.NEXT_PUBLIC_ENV_CMS_URL + "/graphql";
 
 const serverApolloClient = new ApolloClient({
   uri,
