@@ -5,6 +5,9 @@ import slug from "rehype-slug";
 import raw from "rehype-raw";
 import { makeStyles } from "@material-ui/styles";
 import classNames from "classnames";
+import remarkMath from "remark-math";
+import htmlKatex from "remark-html-katex";
+import "katex/dist/katex.min.css";
 
 const useStyles = makeStyles(({ palette }) => ({
   article: {
@@ -180,7 +183,7 @@ function Markdown({ children, ref, className, ...props }: Props) {
   if (typeof children === "string")
     return (
       <article {...props} className={classNames(className, classes.article)}>
-        <ReactMarkdown components={markdowns} rehypePlugins={[slug, raw]} remarkPlugins={[gfm]}>
+        <ReactMarkdown components={markdowns} rehypePlugins={[slug, raw]} remarkPlugins={[gfm, remarkMath, htmlKatex]}>
           {children}
         </ReactMarkdown>
       </article>

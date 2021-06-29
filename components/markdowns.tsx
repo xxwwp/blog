@@ -1,9 +1,7 @@
 import codeTheme from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Link from "next/link";
-import katex from "katex";
 // 数学绘制 css
-import "katex/dist/katex.min.css";
 import React from "react";
 import LinkIcon from "./icon/Link";
 import { styled, makeStyles } from "@material-ui/styles";
@@ -67,11 +65,6 @@ function Anchor({ href = "", ...props }) {
 
 /** code 元素 */
 function Code({ node, inline, className, children, ...props }) {
-  const math = className?.search("language-math") ?? -1;
-  if (math !== -1) {
-    return <div className="katex-container" dangerouslySetInnerHTML={{ __html: katex.renderToString(children[0]) }} />;
-  }
-
   const match = /language-(\w+)/.exec(className || "");
   return !inline ? (
     <SyntaxHighlighter
